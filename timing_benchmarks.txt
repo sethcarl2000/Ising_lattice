@@ -1,0 +1,22 @@
+On my laptop with 20 cores: 
+
+
+Test 1, 16 x 16 lattice -----------------------------------
+    /// the nunber of spins for each testing ring 
+    const int lattice_edge_size = 16; 
+    /// number of spins
+    const int n_spins = lattice_edge_size*lattice_edge_size; 
+    /// the number of cluster updates between each temperature step
+    const long long int annealing_clusters = 2000; 
+    /// cluster updates between measurements
+    const long long int clusters_between_measurements = 4; 
+    /// number of times to repeat a measurement at each step
+    const int n_measurements_per_step = 3e3; 
+
+    Time elapsed for 256 spins: 
+        overall time              46.251 s 
+        time per spin             180.670 ms / spin
+        time per T-step * spin    2.258 ms / spin * temp
+
+Test 2, 32 x 32 lattice -----------------------------------
+    
