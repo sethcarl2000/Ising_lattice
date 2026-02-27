@@ -194,13 +194,43 @@ double IsingLattice::Energy()
 //_________________________________________________________________________________________
 double IsingLattice::Magnetization()
 {
-    double m=0.;
-
-    for (const auto& S : lattice.spins) { m += S; }
-    
-    return m / ((double)lattice_edge_size*lattice_edge_size); 
+    double M=0.;
+    for (const auto& S : lattice.spins) { M += S; }
+    return M; 
 }
 //_________________________________________________________________________________________
+void IsingLattice::GetEnergyMagnetization(double& E, double& M)
+{
+    E = 0.;
+    M = 0.; 
+    //scan each row as it it were a 1d ising model.
+
+    //first, scan all columns 
+    for (int ix=0; ix<lattice_edge_size; ix++) {
+        
+        double S_last = lattice(ix, -1); 
+        for (int iy=0; iy<lattice_edge_size; iy++) {
+            double S = lattice(ix, iy); 
+            E += S*S_last; 
+            S_last = S; 
+            
+            //also compute the magnetization
+            M += S; 
+        }
+    }
+    //next, scan all rows 
+    for (int iy=0; iy<lattice_edge_size; iy++) {
+        
+        double S_last = lattice(-1, iy); 
+        for (int ix=0; ix<lattice_edge_size; ix++) {
+            double S = lattice(ix, iy); 
+            E += S*S_last; 
+            S_last = S; 
+        }
+    }
+    E *= -1.; 
+    return; 
+}
 //_________________________________________________________________________________________
 //_________________________________________________________________________________________
 //_________________________________________________________________________________________

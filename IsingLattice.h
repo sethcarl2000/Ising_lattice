@@ -74,11 +74,16 @@ public:
     /// @return Pointer to array of spins
     SpinLattice_t SetSpins() const { return lattice; } 
 
-    /// @return Returns specific energy (in units of J)
+    /// @return Returns energy (in units of J)
     double Energy(); 
 
-    /// @return Returns specific magnetization
+    /// @return lattice magnetization
     double Magnetization(); 
+
+    /// @brief compute energy & magnetization 
+    /// @param E variable in which to store the energy (units: J)
+    /// @param M variable in which to store the magnetization
+    void GetEnergyMagnetization(double& E, double& M); 
 
     /// @brief Initialize the spin-array with a particular value
     /// @param _lattice lattice of spins
